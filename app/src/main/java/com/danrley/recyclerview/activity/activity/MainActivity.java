@@ -5,8 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.danrley.recyclerview.R;
+import com.danrley.recyclerview.activity.RecyclerItemClickListener;
 import com.danrley.recyclerview.activity.adapter.Adapter;
 import com.danrley.recyclerview.activity.model.Filme;
 
@@ -34,24 +38,52 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         // Chamaando recycler view
         recyclerView.setAdapter( adapter );
+
+        //Eventos de clique
+        recyclerView.addOnItemTouchListener(
+            new RecyclerItemClickListener(
+                    getApplicationContext(),
+                    recyclerView,
+                    new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            Filme filme = listaFilmes.get( position );
+                            Toast.makeText(getApplicationContext(), "Item pressionado " + filme.getTituloFilme(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onLongItemClick(View view, int position) {
+                            Filme filme = listaFilmes.get( position );
+                            Toast.makeText(getApplicationContext(), "Clique longo " + filme.getTituloFilme(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        }
+                    }
+            )
+        );
     }
     public void criarFilmes(){
 
-        Filme filme2 = new Filme("Mulher maravilha", "fantasia", "2018");
-        listaFilmes.add(filme2);
-        Filme filme3 = new Filme("Liga da justiça", "ficção", "2017");
-        listaFilmes.add(filme3);
-        Filme filme4 = new Filme("Capitão américa - Guerra Cívil", "Aventura", "2016");
-        listaFilmes.add(filme4);
-        Filme filme5 = new Filme("It - A Coisa", "Terror / Drama", "2016");
-        listaFilmes.add(filme5);
-        Filme filme6 = new Filme("It - A Coisa", "Terror / Drama", "2016");
-        listaFilmes.add(filme6);
-        Filme filme7 = new Filme("Pica-pau: O filme", "Comédia / Animação", "2017");
-        listaFilmes.add(filme7);
-        Filme filme8 = new Filme("A bela e a fera", "Romance", "2017");
-        listaFilmes.add(filme8);
-        Filme filme9 = new Filme("Meu malvado favorito", "Comédia", "2017");
-        listaFilmes.add(filme9);
+        Filme filme = new Filme("Mulher maravilha", "fantasia", "2018");
+        listaFilmes.add(filme);
+        filme = new Filme("Liga da justiça", "ficção", "2017");
+        listaFilmes.add(filme);
+        filme = new Filme("Capitão américa - Guerra Cívil", "Aventura", "2016");
+        listaFilmes.add(filme);
+        filme = new Filme("It - A Coisa", "Terror / Drama", "2016");
+        listaFilmes.add(filme);
+        filme = new Filme("It - A Coisa", "Terror / Drama", "2016");
+        listaFilmes.add(filme);
+        filme = new Filme("Pica-pau: O filme", "Comédia / Animação", "2017");
+        listaFilmes.add(filme);
+        filme = new Filme("A bela e a fera", "Romance", "2017");
+        listaFilmes.add(filme);
+        filme = new Filme("Meu malvado favorito", "Comédia", "2017");
+        listaFilmes.add(filme);
     }
 }
